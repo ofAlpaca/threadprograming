@@ -3,28 +3,6 @@ import time
 import queue
 import logging
 
-'''
-class BubbleThread(threading.Thread):
-    def __init__(self, thread_ID, List):
-        threading.Thread.__init__(self)
-        self.threadID = thread_ID
-        self.List = List
-    def run(self):
-        print("Starting Thread - " + str(self.threadID) )
-        BubbleSort(self.List)
-        print("Exiting Thread - " + str(self.threadID))
-    def getThreadList(self):
-        return self.List
-
-class MergeThread(threading.Thread):
-    def __init___(self, _bubbleSorted):
-        threading.Thread.__init__(self)
-        self.Lists = _bubbleSorted
-    def run(self):
-        self.sorted = MergSort(self.Lists, SortList.lenOfTotal(self.Lists))
-    def getSorted(self):
-        return self.sorted
-'''
 class SortList():
     def __init__(self, _list):
         self.List = _list
@@ -52,20 +30,6 @@ def BubbleSort(_list, q):
            if _list[j] > _list[j+1]:
                _list[j], _list[j+1] = _list[j+1], _list[j] # swap
    q.put(_list)
-
-
-def MergSort(sortLists, q): # n way mergesort
-    min = sortLists[0]
-    while not q.full():
-        for l in sortLists:
-            if l.GetTopVal() != None:# if l runs out
-                if min.GetTopVal() == None: # if min runs out
-                    min = l # take the first list which is not empty
-                elif l.GetTopVal() < min.GetTopVal(): # less than min
-                    min = l
-
-        q.put(min.GetTopVal())
-        min.IndexPlus()
 
 def MergeSort(_ll, _rl, q): # both _ll and _rl are lists
     l, r = 0, 0
@@ -127,21 +91,6 @@ def main():
         t.start()
         threads.append(t)
 
-
-    '''
-    sortedList = [] 
-    # a list of number of sorted list
-    while not q.empty(): # assing all lists to sortedList
-        sortedList.append(SortList(q.get()))
-    numOfTotal = SortList.lenOfTotal(sortedList)
-    merg_q = queue.Queue(numOfTotal)# Create a total length quene
-    mt = threading.Thread(name = 'ms_thread', target = MergSort, args = (sortedList, merg_q))
-    mt.start()
-    mt.join()
-
-    while not merg_q.empty():
-        print(merg_q.get())
-    '''
     cnt = 0
     while cnt != sepNum - 1:
         if q.qsize() >= 2:
@@ -156,7 +105,6 @@ def main():
     print('Threading terminated...')
     time.sleep(3)
 
- 
 if __name__ == '__main__':
     main()
     
