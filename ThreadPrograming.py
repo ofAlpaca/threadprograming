@@ -91,12 +91,6 @@ def main():
          sepNum = input('Enter the number of threads: ')
     sepNum = int(sepNum)
     
-    _list = GetList(fileName)
-    q = queue.Queue(len(_list))
-    start = time.perf_counter()
-    BubbleSort(_list,q)
-    process_time = time.perf_counter() - start
-    '''
     sep_list = GetSepList(fileName, sepNum)
     # get the processed sepratedly list
     q = queue.Queue(sepNum)
@@ -121,8 +115,6 @@ def main():
             cnt += 1
 
     process_time = time.perf_counter() - start
-    # logging.debug(q.get())
-    '''
     WriteFile(fileName, q.get(), process_time)
     # print('-> {:.5f}'.format(process_time) + ' seconds')
     print('Threading terminated...')
